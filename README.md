@@ -765,14 +765,14 @@ pip install -r requirements.txt
 ### Run Backend
 
 ```bash
-uvicorn main:app --host 0.0.0.0 --port 8001
+uvicorn Main:app --host 0.0.0.0 --port 8001
 # API docs → http://localhost:8001/docs
 ```
 
 ### Run Frontend (separate terminal)
 
 ```bash
-streamlit run app.py --server.port 8502
+streamlit run App.py --server.port 8502
 # Dashboard → http://localhost:8502
 ```
 
@@ -783,13 +783,13 @@ streamlit run app.py --server.port 8502
 ### Build Image
 
 ```bash
-docker build -t fraudshield .
+docker build -t deepak2k6/creditcardfrauddetection:latest .
 ```
 
 ### Run Locally
 
 ```bash
-docker run -p 8001:8001 -p 8502:8502 fraudshield
+docker run -p 8001:8001 -p 8502:8502 deepak2k6/creditcardfrauddetection:latest
 ```
 
 | 🌐 Service | URL |
@@ -800,8 +800,8 @@ docker run -p 8001:8001 -p 8502:8502 fraudshield
 ### Push to Docker Hub
 
 ```bash
-docker tag fraudshield username/fraudshield:latest
-docker push username/fraudshield:latest
+docker tag deepak2k6/creditcardfrauddetection:latest
+docker push deepak2k6/creditcardfrauddetection:latest
 ```
 
 ---
