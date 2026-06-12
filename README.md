@@ -533,7 +533,7 @@ scaled_amount    -0.14          → Fraud
 
 ## 🌐 FastAPI Backend
 
-The backend (`main.py`) is a production-style FastAPI application served by Uvicorn. All three model artifacts are loaded **once at startup** and reused for every request.
+The backend (`Main.py`) is a production-style FastAPI application served by Uvicorn. All three model artifacts are loaded **once at startup** and reused for every request.
 
 ### 🚀 Startup — Model Loading
 
@@ -638,7 +638,7 @@ Interactive API docs: `http://localhost:8001/docs`
 
 ## 🖥️ Streamlit Frontend
 
-The Streamlit dashboard (`app.py`) is the primary user interface. It calls the FastAPI backend over HTTP and renders predictions visually.
+The Streamlit dashboard (`App.py`) is the primary user interface. It calls the FastAPI backend over HTTP and renders predictions visually.
 
 **Live endpoint used:**
 ```python
