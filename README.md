@@ -384,7 +384,7 @@ Credit_Card_Fraud_Detection/
 
 
 ```bash
-docker build -t creditcardfrauddetection .
+docker build -t deepak2k6/creditcardfrauddetection .
 ```
 
 
@@ -425,7 +425,7 @@ Pull Docker image:
 
 
 ```bash
-docker pull username/creditcardfrauddetection:latest
+docker pull deepak2k6/creditcardfrauddetection:latest
 ```
 
 
@@ -436,7 +436,7 @@ Run:
 docker run \
 -p 8001:8001 \
 -p 8502:8502 \
-username/creditcardfrauddetection:latest
+deepak2k6/creditcardfrauddetection:latest
 ```
 
 
@@ -533,7 +533,7 @@ http://EC2_PUBLIC_IP:8502
 
 # Author
 
-**Deepak Kumar**
+**Deepak Kumar Saini**
 
 AI/ML Developer
 
