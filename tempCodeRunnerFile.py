@@ -1,0 +1,1 @@
+vicorn main:app --reload

@@ -1,0 +1,12 @@
+__pycache__/
+catboost_info/
+*.ipynb
+creditcard.csv
+*.png
+tempCodeRunnerFile.py
+venv/
+env/
+.venv/
+.git/
+.DS_Store
+Thumbs.db
