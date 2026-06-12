@@ -1,4 +1,4 @@
-# Credit Card Fraud Detection System
+# 💳 Credit Card Fraud Detection with Dynamic Risk Engine 
 
 > End-to-end fraud detection platform combining supervised ML, unsupervised anomaly detection, explainable AI, and a dynamic risk engine — deployed as a containerized FastAPI + Streamlit application on AWS EC2.
 
@@ -33,7 +33,7 @@
 
 ---
 
-## Project Overview
+## 🧠 Project Overview
 
 Credit card fraud detection is a highly imbalanced binary classification problem — fraudulent transactions account for less than 0.2% of all transactions in real-world datasets. A naive classifier that always predicts "not fraud" achieves 99.8% accuracy yet catches zero fraud. This project is designed to solve that correctly.
 
@@ -72,7 +72,7 @@ All components are served via a FastAPI backend, exposed through a Streamlit das
 
 ---
 
-## System Architecture
+## 🏗️ System Architecture
 
 ```
                         ┌─────────────────────────┐
@@ -116,7 +116,7 @@ All components are served via a FastAPI backend, exposed through a Streamlit das
 
 ---
 
-## Dataset
+## 📊 Dataset
 
 The project uses the [Kaggle Credit Card Fraud Detection dataset](https://www.kaggle.com/datasets/mlg-ulb/creditcardfraud), which contains real anonymized European credit card transactions from September 2013.
 
@@ -237,7 +237,7 @@ All models are evaluated on: Accuracy, Precision, Recall, F1 Score, ROC-AUC, and
 
 ---
 
-## Dynamic Risk Engine
+## 🚨 Dynamic Risk Engine
 
 Rather than returning a binary fraud/not-fraud prediction, the system computes a continuous risk score that blends the supervised model's fraud probability with the unsupervised anomaly signal.
 
@@ -261,7 +261,7 @@ Risk Score = (Fraud Probability × 70) + (Anomaly Score × 30)
 
 ---
 
-## SHAP Explainability
+## 🔎 SHAP Explainability
 
 SHAP (SHapley Additive exPlanations) is integrated to explain every individual prediction, making the system compliant with explainability requirements common in production ML deployments.
 
@@ -290,7 +290,7 @@ Negative SHAP values push toward fraud (Class 1); positive values push toward le
 
 ---
 
-## FastAPI Backend
+## 🌐 FastAPI Backend
 
 The backend is built with FastAPI and served by Uvicorn. It loads the three `.pkl` artifacts at startup and exposes inference via a single POST endpoint.
 
@@ -359,7 +359,7 @@ Interactive API docs available at `http://localhost:8001/docs`.
 
 ---
 
-## Streamlit Frontend
+## 🖥️ Streamlit Frontend
 
 The dashboard is the primary user interface. It communicates with the FastAPI backend over HTTP and visualizes results in real time.
 
@@ -385,7 +385,7 @@ Upload a `.csv` file with multiple transactions. The app:
 
 ---
 
-## Project Structure
+## 📂 Project Structure
 
 ```
 Credit_Card_Fraud_Detection/
@@ -438,7 +438,7 @@ Open `http://localhost:8502`.
 
 ---
 
-## Docker Deployment
+## 🐳 Docker Deployment
 
 ### Build
 
@@ -468,7 +468,7 @@ docker push username/creditcardfrauddetection:latest
 
 ---
 
-## AWS EC2 Deployment
+## ☁️ AWS EC2 Deployment
 
 ### EC2 setup
 
@@ -505,7 +505,7 @@ docker run -d \
 
 ---
 
-## Tech Stack
+## 🛠️ Tech Stack
 
 | Layer | Technology | Purpose |
 |---|---|---|
@@ -537,9 +537,9 @@ docker run -d \
 
 ---
 
-## Author
+## 👨‍💻 Author
 
-**Deepak Kumar** — AI/ML Developer
+**Deepak Kumar Saini** — AI/ML Developer
 
 B.Tech CSE (AI), SKIT Jaipur · CGPA 9.15 · Expected 2027
 
