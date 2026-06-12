@@ -1,542 +1,210 @@
-# 💳 Credit Card Fraud Detection System
+# Credit Card Fraud Detection System
 
-An end-to-end production-ready **Credit Card Fraud Detection System** using Machine Learning, FastAPI backend, Streamlit frontend, SHAP Explainable AI, Dynamic Risk Engine, Docker containerization, and AWS EC2 deployment.
+> End-to-end fraud detection combining supervised ML, unsupervised anomaly detection, explainable AI, and a dynamic risk engine — served via FastAPI and deployed on AWS EC2.
 
-The system detects fraudulent transactions in real time, explains predictions using SHAP, and provides banking-style risk decisions such as transaction approval, OTP verification, or blocking.
-
----
-
-## 🚀 Live Deployment
-
-### Streamlit Application
-
-```
-http://YOUR_PUBLIC_IP:8502
-```
-
-### FastAPI Documentation
-
-```
-http://YOUR_PUBLIC_IP:8001/docs
-```
+![Python](https://img.shields.io/badge/Python-3.10-blue) ![FastAPI](https://img.shields.io/badge/FastAPI-backend-teal) ![Streamlit](https://img.shields.io/badge/Streamlit-frontend-green) ![Docker](https://img.shields.io/badge/Docker-containerized-gray) ![AWS](https://img.shields.io/badge/AWS-EC2-orange)
 
 ---
 
-# 📌 Project Overview
+## Live Deployment
 
-Credit card fraud detection is a highly imbalanced classification problem where fraudulent transactions are very rare compared to normal transactions.
-
-This project combines:
-
-- Supervised Machine Learning
-- Unsupervised Anomaly Detection
-- Explainable AI
-- Risk Scoring System
-- API-based ML Deployment
-
+| Service | URL |
+|---|---|
+| Streamlit UI | `http://YOUR_PUBLIC_IP:8502` |
+| FastAPI Docs | `http://YOUR_PUBLIC_IP:8001/docs` |
 
 ---
 
-# 🏗️ System Architecture
+## Target Performance
 
-
-```
-                    User
-                     |
-                     |
-                     ↓
-
-          Streamlit Frontend
-              (app.py)
-
-     Manual Input | CSV Row | Batch CSV
-
-                     |
-                     |
-              HTTP API Request
-
-                     ↓
-
-             FastAPI Backend
-                (main.py)
-
-                     |
-        --------------------------------
-
-        Isolation Forest
-              |
-              ↓
-        Anomaly Score Feature
-
-              +
-
-        Hybrid ML Model
-
-              |
-              ↓
-
-        Fraud Probability
-
-              |
-              ↓
-
-        Dynamic Risk Engine
-
-              |
-              ↓
-
-     LOW / MEDIUM / HIGH Risk
-
-              |
-              ↓
-
-        SHAP Explainability
-
-              |
-              ↓
-
-        JSON Response to UI
-
-```
+| Metric | Target |
+|---|---|
+| Precision | > 93% |
+| Recall | > 94% |
+| F1 Score | > 92% |
+| Explainability | SHAP (per-prediction) |
 
 ---
 
-# 🧠 Machine Learning Pipeline
+## Machine Learning Pipeline
 
-
-## Data Processing
-
-- Dataset loading
-- Data cleaning
-- Missing value checking
-- Feature scaling
-- Train-test splitting
-
-
----
-
-## Handling Class Imbalance
-
-Fraud datasets are highly imbalanced.
-
-Implemented:
-
-- SMOTE oversampling technique
-
-to improve fraud detection capability.
-
----
-
-# 🤖 Models Used
-
-
-Multiple ML algorithms were trained and evaluated:
-
-- Logistic Regression
-- Random Forest
-- XGBoost
-- LightGBM
-- CatBoost
-- Ensemble Learning
-
-
-Final model:
+Transactions are processed through a hybrid pipeline — an Isolation Forest adds an anomaly score feature, then six supervised models vote on the final fraud probability.
 
 ```
-Hybrid Ensemble Fraud Detection Model
-```
-
----
-
-# 🔍 Isolation Forest Anomaly Detection
-
-
-An unsupervised anomaly detection layer was added.
-
-Process:
-
-```
-Transaction Features
-
+Raw features (V1–V28 + Amount + Time)
         ↓
-
-Isolation Forest
-
+Isolation Forest  →  anomaly_score feature
         ↓
-
-Generate anomaly_score
-
+SMOTE + feature scaling  →  class balance
         ↓
-
-Add as new ML feature
+Stacking Ensemble  →  fraud probability
+        ↓
+Dynamic Risk Engine  →  decision
 ```
 
-This improves fraud pattern detection.
+### Handling class imbalance
+
+- **SMOTE** oversampling applied selectively for Logistic Regression
+- **class_weight / scale_pos_weight** used for tree-based models (Random Forest, XGBoost, LightGBM)
+- **CatBoost** uses `auto_class_weights` with native float casting
+
+### Threshold tuning
+
+Thresholds are tuned via precision-recall curves targeting F1-optimal cutoffs rather than recall-only strategies, to balance false positives and false negatives.
 
 ---
 
-# 📊 Model Evaluation
+## Models
 
-Models evaluated using:
-
-- Accuracy
-- Precision
-- Recall
-- F1 Score
-- ROC-AUC Score
-- Confusion Matrix
-
-
-Threshold tuning was applied for better fraud classification.
+| Model | Imbalance strategy |
+|---|---|
+| Logistic Regression | SMOTE + threshold tuning |
+| Random Forest | class_weight balanced |
+| XGBoost | scale_pos_weight |
+| LightGBM | is_unbalance |
+| CatBoost | auto_class_weights |
+| **Stacking Ensemble** | **Final hybrid model** |
 
 ---
 
-# ⚡ Dynamic Risk Engine
+## Dynamic Risk Engine
 
-
-The ML probability is converted into a banking risk score.
-
-Formula:
+ML fraud probability and the Isolation Forest anomaly score are blended into a single banking risk score:
 
 ```
-Risk Score =
-(Fraud Probability × 70)
-+
-(Anomaly Score × 30)
+Risk Score = (Fraud Probability × 70) + (Anomaly Score × 30)
 ```
 
-
-Decision:
-
-| Risk Score | Level | Action |
-|----------|-------|---------|
-| 0-40 | LOW | Approve Transaction |
-| 40-70 | MEDIUM | OTP Verification |
-| 70-100 | HIGH | Block Transaction |
+| Score | Level | Action |
+|---|---|---|
+| 0 – 40 | 🟢 Low | Approve transaction |
+| 40 – 70 | 🟡 Medium | OTP verification |
+| 70 – 100 | 🔴 High | Block transaction |
 
 ---
 
-# 🔎 SHAP Explainable AI
+## SHAP Explainability
 
-
-SHAP is integrated to explain:
-
-- Why transaction is fraud
-- Feature contribution
-- Model decision transparency
-
-
-Example Output:
-
-```
-Top Important Features
-
-V14
-V17
-V10
-anomaly_score
-```
+SHAP is integrated to explain individual predictions. For each transaction, the model surfaces the top contributing features — e.g. `V14`, `V17`, `V10`, `anomaly_score` — so decisions are auditable and transparent.
 
 ---
 
-# 🌐 FastAPI Backend
+## FastAPI Backend
 
+### `GET /`
 
-FastAPI provides ML inference API.
+Health check.
 
-## Endpoints
-
-
-### Health Check
-
-```
-GET /
+```json
+{ "message": "Fraud Detection API Running" }
 ```
 
-Response:
+### `POST /predict`
+
+**Input:** 30 transaction features as a JSON array.
+
+```json
+{ "features": [0.1, -0.5, ...] }
+```
+
+**Output:**
 
 ```json
 {
- "message":"Fraud Detection API Running"
-}
-```
-
-
----
-
-### Prediction API
-
-```
-POST /predict
-```
-
-
-Input:
-
-```json
-{
- "features":[
-    0.1,
-    -0.5,
-    ...
- ]
-}
-```
-
-
-Output:
-
-
-```json
-{
- "fraud_probability":0.97,
-
- "is_fraud":true,
-
- "anomaly_score":0.82,
-
- "risk_score":91,
-
- "risk_level":"HIGH RISK",
-
- "decision":"BLOCK TRANSACTION"
+  "fraud_probability": 0.97,
+  "is_fraud": true,
+  "anomaly_score": 0.82,
+  "risk_score": 91,
+  "risk_level": "HIGH RISK",
+  "decision": "BLOCK TRANSACTION"
 }
 ```
 
 ---
 
-# 🖥️ Streamlit Frontend Features
+## Streamlit Frontend
 
+Three input modes are supported:
 
-## 1. Manual Transaction Testing
-
-Enter:
-
-- scaled_amount
-- scaled_time
-- V1-V28 PCA features
-
+1. **Manual input** — enter `scaled_amount`, `scaled_time`, and V1–V28 PCA features directly
+2. **Paste CSV row** — paste transaction values as a single comma-separated row
+3. **Batch prediction** — upload a CSV, get fraud probability, risk score, and decision for every row; download results
 
 ---
 
-## 2. Paste CSV Row
-
-
-Paste transaction values directly.
-
-
----
-
-## 3. Batch Prediction
-
-
-Upload CSV file and get:
-
-- Fraud probability
-- Risk score
-- Decision
-
-
-Download results.
-
----
-
-# 📂 Project Structure
-
+## Project Structure
 
 ```
 Credit_Card_Fraud_Detection/
-
-
-│
-├── app.py
-│
-│   Streamlit Frontend
-│
-
-├── main.py
-│
-│   FastAPI Backend
-│
-
-├── fraud_model_hybrid.pkl
-
-├── isolation_forest.pkl
-
-├── fraud_config_hybrid.pkl
-
-
-├── requirements.txt
-
+├── app.py                      # Streamlit frontend
+├── main.py                     # FastAPI backend
+├── fraud_model_hybrid.pkl      # Stacking ensemble
+├── isolation_forest.pkl        # Anomaly scorer
+├── fraud_config_hybrid.pkl     # Thresholds + config
 ├── Dockerfile
-
-├── .dockerignore
-
+├── requirements.txt
 └── README.md
 ```
 
----
-
-# 🐳 Docker Deployment
-
-
-## Build Docker Image
-
-
-```bash
-docker build -t deepak2k6/creditcardfrauddetection .
-```
-
+Training code is kept strictly separate from the frontend. The three `.pkl` artifacts are the only shared interface between training and inference.
 
 ---
 
-## Run Container
-
+## Docker Deployment
 
 ```bash
+# Build
+docker build -t creditcardfrauddetection .
+
+# Run locally
 docker run -p 8001:8001 -p 8502:8502 creditcardfrauddetection
 ```
 
-
-Services:
-
-
-FastAPI:
-
-```
-http://localhost:8001/docs
-```
-
-
-Streamlit:
-
-
-```
-http://localhost:8502
-```
-
+Both services run inside a single container:
+- FastAPI: `http://localhost:8001/docs`
+- Streamlit: `http://localhost:8502`
 
 ---
 
-# ☁️ AWS EC2 Deployment
-
-
-Pull Docker image:
-
+## AWS EC2 Deployment
 
 ```bash
-docker pull deepak2k6/creditcardfrauddetection:latest
-```
+docker pull username/creditcardfrauddetection:latest
 
-
-Run:
-
-
-```bash
 docker run \
--p 8001:8001 \
--p 8502:8502 \
-deepak2k6/creditcardfrauddetection:latest
+  -p 8001:8001 \
+  -p 8502:8502 \
+  username/creditcardfrauddetection:latest
 ```
 
-
-Open:
-
-
-```
-http://EC2_PUBLIC_IP:8502
-```
-
+Then open `http://EC2_PUBLIC_IP:8502`.
 
 ---
 
-# 🛠️ Tech Stack
+## Tech Stack
 
-
-## Programming
-
-- Python
-
-
-## Machine Learning
-
-- Scikit-learn
-- XGBoost
-- LightGBM
-- CatBoost
-- Isolation Forest
-- SMOTE
-
-
-## Explainable AI
-
-- SHAP
-
-
-## Backend
-
-- FastAPI
-- Uvicorn
-
-
-## Frontend
-
-- Streamlit
-
-
-## Deployment
-
-- Docker
-- Docker Hub
-- AWS EC2
-
+| Layer | Tools |
+|---|---|
+| ML | scikit-learn, XGBoost, LightGBM, CatBoost, imbalanced-learn |
+| Explainability | SHAP |
+| Backend | FastAPI, Uvicorn |
+| Frontend | Streamlit |
+| Infrastructure | Docker, Docker Hub, AWS EC2 |
 
 ---
 
-# 📌 Key Features
+## Roadmap
 
-
-✔ Real-time fraud prediction
-
-✔ Hybrid ML architecture
-
-✔ Anomaly detection
-
-✔ Dynamic risk scoring
-
-✔ Explainable AI
-
-✔ REST API backend
-
-✔ Interactive frontend
-
-✔ Batch prediction support
-
-✔ Dockerized deployment
-
-✔ Cloud hosted
-
+- [ ] Database integration for transaction logging
+- [ ] User authentication layer
+- [ ] Real-time monitoring dashboard
+- [ ] CI/CD pipeline
+- [ ] Kubernetes deployment
 
 ---
 
-# Future Improvements
+## Author
 
+**Deepak Kumar** — AI/ML Developer
 
-- Database integration
-- User authentication
-- Monitoring dashboard
-- CI/CD pipeline
-- Kubernetes deployment
-
-
----
-
-# Author
-
-**Deepak Kumar Saini**
-
-AI/ML Developer
-
-```
-Machine Learning | FastAPI | Streamlit | Docker | AWS
-```
+`Machine Learning · FastAPI · Streamlit · Docker · AWS`
