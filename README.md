@@ -1,6 +1,6 @@
 <div align="center">
 
-# 💳 FraudShield — Credit Card Fraud Detection System
+# 💳 Credit Card Fraud Detection System
 
 ### End-to-end ML fraud detection platform with hybrid anomaly detection, SHAP explainability, dynamic risk scoring, FastAPI inference, and AWS EC2 deployment
 
@@ -129,8 +129,8 @@ This project solves the problem correctly with a **hybrid two-layer detection ar
        ├──────────────────────┐
        ▼                      ▼
 ┌─────────────┐    ┌──────────────────────────────┐
-│ 🌲 Isolation │    │  🤖 Hybrid ML Model            │
-│   Forest    │    │  (fraud_model_hybrid.pkl)      │
+│ 🌲 Isolation │    │  🤖 Hybrid ML Model         │
+│   Forest    │    │  (fraud_model_hybrid.pkl)     │
 │             │───▶│                               │
 │ anomaly_    │    │  Base: RF + XGBoost + LightGBM│
 │ score       │    │  Meta: Logistic Regression    │
@@ -138,7 +138,7 @@ This project solves the problem correctly with a **hybrid two-layer detection ar
                                   │
                                   ▼
                    ┌──────────────────────────────┐
-                   │  ⚖️ Dynamic Risk Engine        │
+                   │  ⚖️ Dynamic Risk Engine      │
                    │                              │
                    │  Score = P×70 + A×30         │
                    └──────────────┬───────────────┘
