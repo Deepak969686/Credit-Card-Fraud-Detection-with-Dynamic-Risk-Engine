@@ -1,9 +1,6 @@
 
-# =============================================================================
-# FraudShield Frontend
-# Streamlit + FastAPI Integration
-# Manual + CSV Row + Batch Prediction
-# =============================================================================
+# ================================Credit Card Fraud Detection With Dynamic Engine=============================================
+
 import os
 import streamlit as st
 import pandas as pd
@@ -311,7 +308,6 @@ if mode=="Manual":
 
 
 # ---------------- CSV ROW ----------------
-
 
 elif mode=="Paste CSV row":
 
