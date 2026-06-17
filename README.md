@@ -25,7 +25,7 @@
 
 1. [Project Overview](#-project-overview)
 2. [Live Demo](#-live-demo)
-3. [Model Evaluation Results](#-model-evaluation-results).
+3. [Model Evaluation Results](#-model-evaluation-results)
 4. [System Architecture](#-system-architecture)
 5. [Dataset](#-dataset)
 6. [Exploratory Data Analysis](#-exploratory-data-analysis)
@@ -41,7 +41,6 @@
 16. [AWS EC2 Deployment](#-aws-ec2-deployment)
 17. [Tech Stack](#-tech-stack)
 18. [Key Engineering Decisions](#-key-engineering-decisions)
-19. [Roadmap](#-roadmap)
 
 ---
 
@@ -950,19 +949,6 @@ docker logs fraudshield
 | SHAP explainer | `TreeExplainer` | `KernelExplainer` | 100× faster for tree-based models; exact not approximate |
 | Artifact interface | 3 `.pkl` files only | Full training pipeline | Keeps Docker image lean; training code never enters production |
 | Container design | Single container | Separate containers | Simplifies EC2 deployment for a portfolio project |
-
----
-
-## 🔮 Roadmap
-
-- [ ] 🗄️ PostgreSQL integration for transaction audit logging
-- [ ] 🔐 JWT-based user authentication on the Streamlit dashboard
-- [ ] 📉 Real-time model monitoring dashboard (Grafana + Prometheus)
-- [ ] 🌊 Apache Kafka integration for streaming transaction inference
-- [ ] 🔄 CI/CD pipeline (GitHub Actions → Docker Hub → EC2 auto-deploy)
-- [ ] ☸️ Kubernetes deployment with horizontal pod autoscaling
-- [ ] 📊 Model drift detection with automated retraining triggers
-- [ ] 🧪 A/B testing framework for comparing model versions in production
 
 ---
 
