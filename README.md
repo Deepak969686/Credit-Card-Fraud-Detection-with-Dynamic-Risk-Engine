@@ -135,12 +135,12 @@ Final Performance:
 
 | Metric | Score |
 |-|-|
-| Accuracy | 99.95% |
-| Precision | 92.86% |
-| Recall | 79.59% |
-| F1 Score | 85.71% |
-| PR-AUC | 86.09% |
-| ROC-AUC | 98.47% |
+| Accuracy | 99.96% |
+| Precision | 96.34% |
+| Recall | 80.61% |
+| F1 Score | 87.78% |
+| PR-AUC | 86.79% |
+| ROC-AUC | 97.49% |
 
 ---
 
@@ -168,15 +168,15 @@ Benefits:
                          │
                          ▼
 ┌─────────────────────────────────────────────────────────┐
-│              🖥️  Streamlit Dashboard (app.py)            │
+│              🖥️  Streamlit Dashboard (app.py)           │
 │                                                          │
-│   📝 Manual Input │ 📋 Paste CSV Row │ 📁 Batch Upload   │
+│   📝 Manual Input │ 📋 Paste CSV Row │ 📁 Batch Upload │
 └────────────────────────┬────────────────────────────────┘
                          │  HTTP POST /predict
                          │  {"features": [...30 values...]}
                          ▼
 ┌─────────────────────────────────────────────────────────┐
-│              ⚡ FastAPI Backend (main.py)                 │
+│              ⚡ FastAPI Backend (main.py)               │
 │                   Uvicorn ASGI Server                    │
 │                   Port: 8001                             │
 └──────┬──────────────────────────────────────────────────┘
@@ -184,7 +184,7 @@ Benefits:
        ├──────────────────────┐
        ▼                      ▼
 ┌─────────────┐    ┌──────────────────────────────┐
-│ 🌲 Isolation │    │  🤖 Hybrid ML Model         │
+│ 🌲 Isolation │  │  🤖 Hybrid ML Model          │
 │   Forest    │    │  (fraud_model_hybrid.pkl)     │
 │             │───▶│                               │
 │ anomaly_    │    │  Base: RF + XGBoost + LightGBM│
@@ -206,13 +206,13 @@ Benefits:
                └──────────────────┼──────────────────┘
                                   ▼
                    ┌──────────────────────────────┐
-                   │  🔍 SHAP Explainability       │
-                   │  Top 5 feature impacts        │
+                   │  🔍 SHAP Explainability      │
+                   │  Top 5 feature impacts       │
                    └──────────────┬───────────────┘
                                   │
                                   ▼
                    ┌──────────────────────────────┐
-                   │  📦 JSON Response to UI       │
+                   │  📦 JSON Response to UI      │
                    │  fraud_probability            │
                    │  anomaly_score                │
                    │  risk_score + risk_level      │
