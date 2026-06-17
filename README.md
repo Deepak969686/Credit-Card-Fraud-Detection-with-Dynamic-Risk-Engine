@@ -25,7 +25,7 @@
 
 1. [Project Overview](#-project-overview)
 2. [Live Demo](#-live-demo)
-3. [Performance Results](#-performance-results)
+3. [Model Evaluation Results](#-model-evaluation-results).
 4. [System Architecture](#-system-architecture)
 5. [Dataset](#-dataset)
 6. [Exploratory Data Analysis](#-exploratory-data-analysis)
@@ -55,7 +55,7 @@ This project solves the problem correctly with a **hybrid two-layer detection ar
 |---|---|---|
 | 🌲 Layer 1 | Isolation Forest (unsupervised) | Generates `anomaly_score` — catches novel fraud patterns |
 | 🤖 Layer 2 | Stacking Ensemble (supervised) | 5 base models + meta-learner for fraud probability |
-| ⚖️ Layer 3 | Dynamic Risk Engine | Converts ML output into banking-grade risk decisions |
+| ⚖️ Layer 3 | Dynamic Risk Engine | Converts ML output into Results]decisions |
 | 🔎 Layer 4 | SHAP Explainability | Explains every individual prediction |
 
 **Why this architecture works better than a single model:**
