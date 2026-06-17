@@ -160,8 +160,7 @@ Benefits:
 
 ## 🏗️ System Architecture
 
-```<img width="1600" height="874" alt="image" src="https://github.com/user-attachments/assets/1f2a174c-ba39-4c9a-bd46-951e72d6b2a9" />
-
+```
 ┌─────────────────────────────────────────────────────────┐
 │                    👤 User / Client                      │
 └────────────────────────┬────────────────────────────────┘
