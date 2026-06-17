@@ -159,9 +159,9 @@ Benefits:
 ---
 
 ## 🏗️ System Architecture
-
-```
 <img width="1600" height="874" alt="architecture" src="https://github.com/user-attachments/assets/2c3ca7da-2b00-4066-a1e6-fa9d32b20ac0" />
+```
+
 
 ┌─────────────────────────────────────────────────────────┐
 │                    👤 User / Client                      │
