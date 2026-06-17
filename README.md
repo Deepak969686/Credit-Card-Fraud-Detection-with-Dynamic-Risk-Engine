@@ -77,7 +77,7 @@ This project solves the problem correctly with a **hybrid two-layer detection ar
 
 ---
 
-## 📊 Model Evaluation Results
+# 📊 Model Evaluation Results
 
 Multiple machine learning models were trained and evaluated using both baseline features and the hybrid anomaly detection pipeline.
 
@@ -104,7 +104,7 @@ Evaluation Metrics:
 
 ---
 
-# 🚀 Hybrid Pipeline Results (With Isolation Forest Anomaly Score)
+## 🚀 Hybrid Pipeline Results (With Isolation Forest Anomaly Score)
 
 An Isolation Forest based anomaly detection layer was added to generate an additional fraud risk feature (`anomaly_score`) which was combined with supervised models.
 
@@ -119,7 +119,7 @@ An Isolation Forest based anomaly detection layer was added to generate an addit
 
 ---
 
-# 🏆 Final Selected Model
+## 🏆 Final Selected Model
 
 The final deployment uses:
 
@@ -131,7 +131,7 @@ Isolation Forest Anomaly Detection
 Dynamic Risk Engine
 ```
 
-Final Performance:
+Final Performance: LightGBM With Isolation Forest
 
 | Metric | Score |
 |-|-|
@@ -144,7 +144,7 @@ Final Performance:
 
 ---
 
-# 📈 Impact of Adding Anomaly Detection
+## 📈 Impact of Adding Anomaly Detection
 
 Adding an unsupervised anomaly detection layer helped the system detect unusual transaction behavior and improved robustness against unseen fraud patterns.
 
