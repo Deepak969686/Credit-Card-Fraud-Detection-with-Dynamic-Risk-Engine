@@ -48,7 +48,7 @@ div.stButton > button:hover {
 
 # ---------------- API ----------------
 
-API_URL = "http://13.48.56.226:8001/predict"
+API_URL = "https://credit-card-fraud-detection-with-dynamic-ivkm.onrender.com/predict"
 
 FEATURES = (
     ["scaled_amount", "scaled_time"]
